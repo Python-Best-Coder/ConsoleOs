@@ -110,9 +110,13 @@ def System():
                 name = input('Filepath > ')
                 if name.startswith('"') and name.endswith('"'):
                     name = name[1:-1]
-                with open(name, 'r') as file:
-                    text = file.read()
-                    Option(text,['Exit'])
+                try:
+                    with open(name, 'r') as file:
+                        text = file.read()
+                        Option(text,['Exit'])
+                except Exception as e:
+                    print("There was a error that happened when opening the file. so we saved you from getting a console error.")
+
                
             if filemanage == 'Write File':
                 name = input("Name > ")
