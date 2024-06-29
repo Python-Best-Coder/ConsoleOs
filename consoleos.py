@@ -115,7 +115,7 @@ def System():
                         text = file.read()
                         Option(text,['Exit'])
                 except Exception as e:
-                    print("There was a error that happened when opening the file. so we saved you from getting a console error.")
+                    Option("There was a error that happened when opening the file. so we saved you from getting a console error.",['Exit'])
 
                
             if filemanage == 'Write File':
