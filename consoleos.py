@@ -83,7 +83,7 @@ if not datafound:
         file.write(str(datasaved))
     print(f"File '{file_path}' created.")
 
-time.sleep(3)
+
 
 # Function to handle system operations
 def System():
