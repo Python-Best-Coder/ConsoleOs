@@ -42,6 +42,7 @@ def KernelError():
 print("Welcome to Console.os.")
 
 import os
+isitok = True
 print(os.getcwd())  # prints the current working directory
 # adjust the path as needed
 
@@ -108,14 +109,28 @@ def System():
             time.sleep(0.4)
             if filemanage == 'Open File':
                 name = input('Filepath > ')
-                if name.startswith('"') and name.endswith('"'):
-                    name = name[1:-1]
-                try:
-                    with open(name, 'r') as file:
-                        text = file.read()
-                        Option(text,['Exit'])
-                except Exception as e:
-                    Option("There was a error that happened when opening the file. so we saved you from getting a console error.",['Exit'])
+                if not name == '>':
+                    if name.startswith('"') and name.endswith('"'):
+                        name = name[1:-1]
+                    try:
+                        with open(name, 'r') as file:
+                            text = file.read()
+                            Option(text,['Exit'])
+                    except Exception as e:
+                        Option("There was a error that happened when opening the file. so we saved you from getting a console error.",['Exit'])
+
+                else:
+                    Option("...",['Haha'])
+                    Option("Its not funny lil bro",['and?'])
+                    if not Option("Do you want your death?",['What you gonna do?','im sorry..']) == 'im sorry..':
+                        print("ALRIGHT FINE.")
+                        time.sleep(3)
+                        KernelError()
+                    else:
+                        print("Its not ok.")
+                        time.sleep(4)
+                        datasaved['Useless'] = 'ITS NOT OK '*1000
+                        isitok = False
 
                
             if filemanage == 'Write File':
@@ -153,34 +168,39 @@ def System():
                 continue
         
         elif app == 'ConsoleBrowse':
-            print("History")
-            historiesprinted = 0
-            for x in datasaved['History']:
-                if historiesprinted <= 10:
-                    print(x)
-                    historiesprinted += 1
-                else:
-                    break
+            if isitok:
+                print("History")
+                historiesprinted = 0
+                for x in datasaved['History']:
+                    if historiesprinted <= 10:
+                        print(x)
+                        historiesprinted += 1
+                    else:
+                        break
 
-            
-            browse = input("Website >")
-            url = browse.strip()
+                
+                browse = input("Website >")
+                url = browse.strip()
 
-            
-            if not url.startswith("http://") and not url.startswith('https://'):
-                url = 'https://' + url
-            
-            # Replace ':' with '.' before storing in history
+                
+                if not url.startswith("http://") and not url.startswith('https://'):
+                    url = 'https://' + url
+                
+                # Replace ':' with '.' before storing in history
 
-            
-            response = fetch_webpage(url)
-            if response:
-                parsed_content = parse_html(response)
-                print(parsed_content)
-                datasaved['History'].append(url)
-            
-            input("Press Enter to continue...")
-            continue
+                
+                response = fetch_webpage(url)
+                if response:
+                    parsed_content = parse_html(response)
+                    print(parsed_content)
+                    datasaved['History'].append(url)
+                
+                input("Press Enter to continue...")
+                continue
+            else:
+                Option("YOU CANT GET AWAY. "*20,['alright thats it'])
+                Option("OHHH MY GOOOOOo- THIS IS IMPOSSIBLE.",['noob'])
+                isitok = True
 
 
 # Function to fetch a web page using requests
