@@ -6,6 +6,7 @@ import shutil
 import random
 import getpass
 import ast
+import string
 import re
 import base64
 
@@ -23,47 +24,41 @@ def Option(question: str, options: list) -> str:
                 print('>', option)
             else:
                 print(option)
-        print('\n')
-        time.sleep(0.01)
 
+        time.sleep(0.01)
+        
         if keyboard.is_pressed('down') and not x + 1 > len(options) - 1:
             x += 1
             time.sleep(0.1)
         elif keyboard.is_pressed('up') and not x - 1 < 0:
             x -= 1
             time.sleep(0.1)
-        elif keyboard.is_pressed('shift') or keyboard.is_pressed('enter'):
+        elif keyboard.is_pressed('shift'):
             time.sleep(0.1)  # Wait briefly to avoid multiple key presses
-            while keyboard.is_pressed('shift') or keyboard.is_pressed('enter'):  # Wait until 'shift' is released
+            while keyboard.is_pressed('shift'):  # Wait until 'shift' is released
                 time.sleep(0.01)
             return options[x]
-        elif keyboard.is_pressed('esc'): return False
-
 
 # Function to handle kernel errors
 def KernelError():
     return Option("Kernel Error!", ['Restart', 'Shutdown'])
 
-
 print("Welcome to Console.os.")
 
 import os
-
 isitok = True
-apps = ['testingapp', 'File Manager', 'Settings', 'Shutdown', 'the virus', 'ConsoleBrowse', 'Terminal']
+apps = ['testingapp','File Manager', 'Settings', 'Shutdown', 'the virus', 'ConsoleBrowse', 'Terminal']
 print(os.getcwd())  # prints the current working directory
 # adjust the path as needed
 
 # Directory for data storage
 data = r'C:/Users/' + getpass.getuser() + r'/ConsoleOsData'
 datafound = False
-datasaved = {'Useless': '', 'History': []}
+datasaved = {'Useless':'','History':[]}
 if not os.path.exists(data):
     print("Data not Found. Creating Directory...")
 
     os.makedirs(data)
-
-
 # Function to list files in a directory
 def list_files_in_directory(directory):
     try:
@@ -75,8 +70,6 @@ def list_files_in_directory(directory):
         print("You do not have permission to access this directory")
 
         # Check if data file exists and load data
-
-
 for file in list_files_in_directory(data):
     if file == 'donotdelete.txt':
         datafound = True
@@ -87,6 +80,8 @@ for file in list_files_in_directory(data):
             datasaved = ast.literal_eval(read)
             print(datasaved)
 
+
+
 if not datafound:
     print("Data not found... Writing new file...")
     file_path = os.path.join(data, 'donotdelete.txt')
@@ -95,19 +90,21 @@ if not datafound:
     print(f"File '{file_path}' created.")
 
 
+
 # Function to handle system operations
 def System():
+    
     while True:
         app = Option('Choose an app:', apps)
         print(f"Opening {app}..")
         if app == 'testingapp':
-            a = Option("WHY ARE YOU HERE", ['a', 'b'])
+            a = Option("WHY ARE YOU HERE",['a','b'])
             if a == 'b':
                 x = input("Write to data... > ")
                 datasaved['Useless'] = x
             else:
-                Option(datasaved['Useless'], ['GET OUT!'])
-
+                Option(datasaved['Useless'],['GET OUT!'])
+            
         if app == 'Settings':
             setting = Option('Settings', ['BuildModule'])
             if setting == 'BuildModule':
@@ -115,23 +112,48 @@ def System():
         elif app == 'Terminal':
             os.system('cls')
             inp = input("> ")
-            install = re.search(r'\$sudo inst \;(.+)', inp)
+            install = re.search(r'\$sudo inst \;(.+)',inp)
             if install:
-                appsincloud = ['appstore']
+                appsincloud = ['appstore','10110','$sudo']
                 appinstalling = install.group(1)
                 if appinstalling in appsincloud and not appinstalling in apps:
-                    for i in range(1, 100):
+                    for i in range(1,100):
                         print("Installing...")
-                        print('[', '#' * i, '0' * (100 - i), ']')
+                        print('[','#'*i,'0'*(100-i),']')
                         os.system('cls')
-                        time.sleep(random.uniform(0.01, 0.1))
+                        time.sleep(random.uniform(0.01,0.1))
                     apps.append(appinstalling)
             else:
                 print("Failed to install app: app not found")
                 time.sleep(3)
+        elif app == '$sudo':
+            x = 0
+            while True:
+                os.system('cls')
+                x += 1
+                nameer = string.ascii_letters
+                randomname = ''
+                for _ in range(4):
+                    randomname += random.choice(nameer)
+                
+                print(f'$sudo inst ;{randomname}')
+                time.sleep(1)
+                if x == 30:
+                    Option("Paitience.",[''])
+                    break
+            if not 'Paitience' in apps:
+                apps.append('Paitience')
 
+
+        elif app == 'Paitience':
+            x = 600
+            while x > 0:
+                os.system('cls')
+                print(f"Just wait for {x} more seconds. you'll be fine.")
+                time.sleep(1)
+                x -= 1
         elif app == 'File Manager':
-            filemanage = Option("File Manager", ['Write File', 'Open File'])
+            filemanage = Option("File Manager", ['Write File','Open File'])
             time.sleep(0.4)
             if filemanage == 'Open File':
                 name = input('Filepath > ')
@@ -141,36 +163,35 @@ def System():
                     try:
                         with open(name, 'r') as file:
                             text = file.read()
-                            Option(text, ['Exit'])
+                            Option(text,['Exit'])
                     except Exception as e:
-                        Option(
-                            "There was a error that happened when opening the file. so we saved you from getting a console error.",
-                            ['Exit'])
+                        Option("There was a error that happened when opening the file. so we saved you from getting a console error.",['Exit'])
 
                 else:
-                    Option("...", ['Haha'])
-                    Option("Its not funny lil bro", ['and?'])
-                    if not Option("Do you want your death?", ['What you gonna do?', 'im sorry..']) == 'im sorry..':
+                    Option("...",['Haha'])
+                    Option("Its not funny lil bro",['and?'])
+                    if not Option("Do you want your death?",['What you gonna do?','im sorry..']) == 'im sorry..':
                         print("ALRIGHT FINE.")
                         time.sleep(3)
                         KernelError()
                     else:
                         print("Its not ok.")
                         time.sleep(4)
-                        datasaved['Useless'] = 'ITS NOT OK ' * 1000
+                        datasaved['Useless'] = 'ITS NOT OK '*1000
                         isitok = False
 
+               
             if filemanage == 'Write File':
                 name = input("Name > ")
                 text = input("Text > ")
                 file_path = os.path.join(data, name + '.txt')
-
+                
                 # Write text to file
                 with open(file_path, 'w') as file:
                     file.write(text)
-
+                
                 print(f"File '{name}.txt' saved to '{data}'")
-
+                
         elif app == 'Shutdown':
             print("Saving data...")
             file_path = os.path.join(data, 'donotdelete.txt')
@@ -181,7 +202,15 @@ def System():
             print("Shutting down")
             print("Goodbye!")
             break
-
+        elif app == '10110':
+            Option("01010111 01001000 01011001 00100000 01000100 01001001 01000100 00100000 01011001 01001111 01010101 00100000 01000100 01001111 00100000 01010100 01001000 01001001 01010011",['winwin'])
+            Option("im removing all your ram.",['nooo'])
+            while True:
+                if not random.randint(1,100) == 100:
+                    Option("THE LEAKRS ARE COMING",['NO'])
+                else:
+                    Option("the gods has savd u from the leakrs!",['what?'])
+                    break
         elif app == 'the virus':
             print("SYSTEMOS has stopped responding.")
             time.sleep(1)
@@ -194,19 +223,20 @@ def System():
                 time.sleep(2)
                 continue
         elif app == 'appstore':
-            x = Option("Install App:", ['base64 translator'])
+            x = Option("Install App:",['base64 translator'])
             if x == 'base64 translator':
-                for i in range(1, 100):
+                for i in range(1,100):
                     print("Installing...")
-                    print('[', '#' * i, '0' * (100 - i), ']')
+                    print('[','#'*i,'0'*(100-i),']')
                     os.system('cls')
-                    time.sleep(random.uniform(0.01, 0.1))
+                    time.sleep(random.uniform(0.01,0.1))
                     if not x in apps:
                         apps.append(x)
         elif app == 'base64 translator':
             inp = input("> ")
-            x = bytes(inp, 'utf-8')
-            Option(f"Base64: {str(base64.b64encode(x))}", ['exit'])
+            x = bytes(inp,'utf-8')
+            Option(f"Base64: {str(base64.b64encode(x))}",['exit'])
+
 
         elif app == 'ConsoleBrowse':
             if isitok:
@@ -219,25 +249,28 @@ def System():
                     else:
                         break
 
+                
                 browse = input("Website >")
                 url = browse.strip()
 
+                
                 if not url.startswith("http://") and not url.startswith('https://'):
                     url = 'https://' + url
-
+                
                 # Replace ':' with '.' before storing in history
 
+                
                 response = fetch_webpage(url)
                 if response:
                     parsed_content = parse_html(response)
                     print(parsed_content)
                     datasaved['History'].append(url)
-
+                
                 input("Press Enter to continue...")
                 continue
             else:
-                Option("YOU CANT GET AWAY. " * 20, ['alright thats it'])
-                Option("OHHH MY GOOOOOo- THIS IS IMPOSSIBLE.", ['noob'])
+                Option("YOU CANT GET AWAY. "*20,['alright thats it'])
+                Option("OHHH MY GOOOOOo- THIS IS IMPOSSIBLE.",['noob'])
                 isitok = True
 
 
@@ -251,14 +284,13 @@ def fetch_webpage(url):
         print(f"Error: {e}")
         return None
 
-
 # Function to parse HTML content using BeautifulSoup
 def parse_html(content):
     soup = BeautifulSoup(content, 'html.parser')
     text = soup.get_text()
-    text = text.replace('\n', ' ')  # Remove newlines
+    text = text.replace('\n',' ')  # Remove newlines
     return text
-
 
 # Start the console OS system
 System()
+
