@@ -54,7 +54,7 @@ print(os.getcwd())  # prints the current working directory
 # Directory for data storage
 data = r'C:/Users/' + getpass.getuser() + r'/ConsoleOsData'
 datafound = False
-datasaved = {'Useless':'','History':[]}
+datasaved = {'Useless':'','History':[],'Balance':0}
 if not os.path.exists(data):
     print("Data not Found. Creating Directory...")
 
@@ -120,8 +120,8 @@ def System():
                     for i in range(1,100):
                         print("Installing...")
                         print('[','#'*i,'0'*(100-i),']')
-                        os.system('cls')
                         time.sleep(random.uniform(0.01,0.1))
+                        os.system('cls')
                     apps.append(appinstalling)
             else:
                 print("Failed to install app: app not found")
@@ -223,7 +223,8 @@ def System():
                 time.sleep(2)
                 continue
         elif app == 'appstore':
-            x = Option("Install App:",['base64 translator'])
+            x = Option("Install App:",['base64 translator','Lottery!'])
+            
             if x == 'base64 translator':
                 for i in range(1,100):
                     print("Installing...")
@@ -232,10 +233,61 @@ def System():
                     time.sleep(random.uniform(0.01,0.1))
                     if not x in apps:
                         apps.append(x)
+            elif x == 'Lottery!':
+                for i in range(1,100):
+                    print("Installing...")
+                    print('[','#'*i,'0'*(100-i),']')
+                    
+                    time.sleep(random.uniform(0.01,0.1))
+                    os.system('cls')
+                    if not x in apps:
+                        apps.append(x)
         elif app == 'base64 translator':
             inp = input("> ")
             x = bytes(inp,'utf-8')
             Option(f"Base64: {str(base64.b64encode(x))}",['exit'])
+        elif app == 'Lottery!':
+            while True:
+                try:
+                    inp = int(input("Bet: "))
+                    break
+                except Exception as e:
+                    print("error.")
+
+            turn = 1
+            symbols = ['$','%','&']
+            x = '$'
+            y = '$'
+            z = '$'
+            os.system('cls')
+            for _ in range(3):
+                for _ in range(random.randint(10,100)):
+                    print(f'{x}|{y}|{z}')
+                    
+                    if turn == 1:
+                        x = random.choice(symbols)
+                    elif turn == 2:
+                        y = random.choice(symbols)
+                    else:
+                        z = random.choice(symbols)
+                    time.sleep(0.1)
+                    os.system('cls')
+                turn += 1
+            print(f'{x}|{y}|{z}')
+            time.sleep(1)
+            os.system('cls')
+                    
+
+            if x == y and y == z:
+                Option("You win!",['yay'])
+                datasaved['Balance'] += inp
+            else:
+                Option("You lose!",['Ya- wait, what?!'])
+                datasaved["Balance"] -= inp
+
+
+
+
 
 
         elif app == 'ConsoleBrowse':
