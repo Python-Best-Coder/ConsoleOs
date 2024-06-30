@@ -5,7 +5,6 @@ import requests
 import shutil
 import random
 import getpass
-import psutil
 import ast
 import re
 import base64
@@ -25,7 +24,6 @@ def Option(question: str, options: list) -> str:
             else:
                 print(option)
         print('\n')
-        print(f"Battery: {psutil.sensors_battery().percent}%")
         time.sleep(0.01)
 
         if keyboard.is_pressed('down') and not x + 1 > len(options) - 1:
