@@ -4,7 +4,7 @@ import time
 import requests
 import shutil
 import getpass
-import os
+import psutil
 import ast
 
 from bs4 import BeautifulSoup
@@ -21,6 +21,8 @@ def Option(question: str, options: list) -> str:
                 print('>', option)
             else:
                 print(option)
+        print('\n')
+        print(f"Battery: {psutil.sensors_battery().percent}%")
         time.sleep(0.01)
         
         if keyboard.is_pressed('down') and not x + 1 > len(options) - 1:
@@ -222,3 +224,4 @@ def parse_html(content):
 
 # Start the console OS system
 System()
+
