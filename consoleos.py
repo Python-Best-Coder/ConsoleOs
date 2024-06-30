@@ -3,9 +3,12 @@ import keyboard
 import time
 import requests
 import shutil
+import random
 import getpass
 import psutil
 import ast
+import re
+import base64
 
 from bs4 import BeautifulSoup
 
@@ -45,6 +48,7 @@ print("Welcome to Console.os.")
 
 import os
 isitok = True
+apps = ['testingapp','File Manager', 'Settings', 'Shutdown', 'the virus', 'ConsoleBrowse', 'Terminal']
 print(os.getcwd())  # prints the current working directory
 # adjust the path as needed
 
@@ -90,8 +94,9 @@ if not datafound:
 
 # Function to handle system operations
 def System():
+    
     while True:
-        app = Option('Choose an app:', ['testingapp','File Manager', 'Settings', 'Shutdown', 'the virus', 'ConsoleBrowse'])
+        app = Option('Choose an app:', apps)
         print(f"Opening {app}..")
         if app == 'testingapp':
             a = Option("WHY ARE YOU HERE",['a','b'])
@@ -105,7 +110,24 @@ def System():
             setting = Option('Settings', ['BuildModule'])
             if setting == 'BuildModule':
                 Option("BuildModule: 0.0.2", ['Exit'])
-                
+        elif app == 'Terminal':
+            os.system('cls')
+            inp = input("> ")
+            install = re.search(r'\$sudo inst \;(.+)',inp)
+            if install:
+                appsincloud = ['appstore']
+                appinstalling = install.group(1)
+                if appinstalling in appsincloud and not appinstalling in apps:
+                    for i in range(1,100):
+                        print("Installing...")
+                        print('[','#'*i,'0'*(100-i),']')
+                        os.system('cls')
+                        time.sleep(random.uniform(0.01,0.1))
+                    apps.append(appinstalling)
+            else:
+                print("Failed to install app: app not found")
+                time.sleep(3)
+
         elif app == 'File Manager':
             filemanage = Option("File Manager", ['Write File','Open File'])
             time.sleep(0.4)
@@ -168,7 +190,21 @@ def System():
                 print("FORCE RESTART..")
                 time.sleep(2)
                 continue
-        
+        elif app == 'appstore':
+            x = Option("Install App:",['base64 translator'])
+            if x == 'base64 translator':
+                for i in range(1,100):
+                    print("Installing...")
+                    print('[','#'*i,'0'*(100-i),']')
+                    os.system('cls')
+                    time.sleep(random.uniform(0.01,0.1))
+                    if not x in apps:
+                        apps.append(x)
+        elif app == 'base64 translator':
+            inp = input("> ")
+            x = bytes(inp,'utf-8')
+            Option(f"Base64: {str(base64.b64encode(x))}",['exit'])
+
         elif app == 'ConsoleBrowse':
             if isitok:
                 print("History")
