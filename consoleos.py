@@ -52,7 +52,7 @@ print(os.getcwd())  # prints the current working directory
 # adjust the path as needed
 
 # Directory for data storage
-data = r'C:/Users/' + getpass.getuser() + r'/ConsoleOsData'
+data = r'C:/Users/' + getpass.getuser() + r'/MeatballsOs' r'/MeatballsOsData'
 datafound = False
 datasaved = {'Useless':'','History':[],'Balance':0}
 if not os.path.exists(data):
@@ -113,16 +113,29 @@ def System():
             os.system('cls')
             inp = input("> ")
             install = re.search(r'\$sudo inst \;(.+)',inp)
+            package = re.search(r'\$sudo instpackage \;(.+)',inp)
             if install:
                 appsincloud = ['appstore','10110','$sudo']
                 appinstalling = install.group(1)
                 if appinstalling in appsincloud and not appinstalling in apps:
                     for i in range(1,100):
-                        print("Installing...")
+                        print("Installing..")
                         print('[','#'*i,'0'*(100-i),']')
                         time.sleep(random.uniform(0.01,0.1))
                         os.system('cls')
                     apps.append(appinstalling)
+            elif package:
+                appsincloud = ['consoleoscoder']
+                appinstalling = package.group(1)
+                if appinstalling in appsincloud and not appinstalling in apps:
+                    for i in range(1,100):
+                        print("Installing Package..")
+                        print("this may take long.")
+                        print('[','#'*i,'0'*(100-i),']')
+                        time.sleep(random.uniform(0.01,0.2))
+                        os.system('cls')
+                    apps.append(appinstalling)
+
             else:
                 print("Failed to install app: app not found")
                 time.sleep(3)
@@ -205,12 +218,14 @@ def System():
         elif app == '10110':
             Option("01010111 01001000 01011001 00100000 01000100 01001001 01000100 00100000 01011001 01001111 01010101 00100000 01000100 01001111 00100000 01010100 01001000 01001001 01010011",['winwin'])
             Option("im removing all your ram.",['nooo'])
+            x = 100
             while True:
-                if not random.randint(1,100) == 100:
-                    Option("THE LEAKRS ARE COMING",['NO'])
+                if not x == 0:
+                    Option("THE LEAKRS ARE COMING",[f'NO PLS! ILL GIVE YOU {x} COOKIES!'])
                 else:
                     Option("the gods has savd u from the leakrs!",['what?'])
                     break
+                x -= 1
         elif app == 'the virus':
             print("SYSTEMOS has stopped responding.")
             time.sleep(1)
