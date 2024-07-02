@@ -3,13 +3,13 @@ import keyboard
 import time
 import requests
 import shutil
-import consolecoderinterpreter
+
 import random
 import getpass
 import ast
 import string
 import re
-import o
+
 import base64
 
 from bs4 import BeautifulSoup
@@ -80,7 +80,6 @@ for file in list_files_in_directory(data):
             read = file.read()
             # Split the string into key-value pairs
             datasaved = ast.literal_eval(read)
-            print(o.encrypt_string(read))
 time.sleep(1)
 
 
