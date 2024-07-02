@@ -3,11 +3,13 @@ import keyboard
 import time
 import requests
 import shutil
+import consolecoderinterpreter
 import random
 import getpass
 import ast
 import string
 import re
+import o
 import base64
 
 from bs4 import BeautifulSoup
@@ -52,7 +54,7 @@ print(os.getcwd())  # prints the current working directory
 # adjust the path as needed
 
 # Directory for data storage
-data = r'C:/Users/' + getpass.getuser() + r'/MeatballsOs' r'/MeatballsOsData'
+data = r'C:/Users/' + getpass.getuser() + r'/ConsoleOs' r'/ConsoleOsData'
 datafound = False
 datasaved = {'Useless':'','History':[],'Balance':0}
 if not os.path.exists(data):
@@ -78,7 +80,8 @@ for file in list_files_in_directory(data):
             read = file.read()
             # Split the string into key-value pairs
             datasaved = ast.literal_eval(read)
-            print(datasaved)
+            print(o.encrypt_string(read))
+time.sleep(1)
 
 
 
@@ -115,7 +118,7 @@ def System():
             install = re.search(r'\$sudo inst \;(.+)',inp)
             package = re.search(r'\$sudo instpackage \;(.+)',inp)
             if install:
-                appsincloud = ['appstore','10110','$sudo']
+                appsincloud = ['appstore','10110','$sudo', 'THEPACKAGE']
                 appinstalling = install.group(1)
                 if appinstalling in appsincloud and not appinstalling in apps:
                     for i in range(1,100):
@@ -157,7 +160,44 @@ def System():
             if not 'Paitience' in apps:
                 apps.append('Paitience')
 
-
+        elif app == 'THEPACKAGE':
+            alphabet = 'λß©∂€ҒḡҺ!jкℓм∩оρq®ƨ†μνωχ¥z'
+            alpha = {
+                'a': 'λ',
+                'b': 'ß',
+                'c': '©',
+                'd': '∂',
+                'e': '€',
+                'f': 'Ғ',
+                'g': 'ḡ',
+                'h': 'Һ',
+                'i': '!',
+                'j': 'j',
+                'k': 'к',
+                'l': 'ℓ',
+                'm': 'м',
+                'n': '∩',
+                'o': 'о',
+                'p': 'ρ',
+                'q': 'q',
+                'r': '®',
+                's': 'ƨ',
+                't': '†',
+                'u': 'μ',
+                'v': 'ν',
+                'w': 'ω',
+                'x': 'χ',
+                'y': '¥',
+                'z': 'z'
+            }
+            e = input('import a string of txt for only using letters in the alphabet.')
+            strtoprint = ''
+            for letter in e:
+                if letter in alpha:
+                    strtoprint += f'{alpha[letter]}'
+                else:
+                    strtoprint += letter
+            Option(strtoprint,['Exit'])
         elif app == 'Paitience':
             x = 600
             while x > 0:
@@ -261,6 +301,10 @@ def System():
             inp = input("> ")
             x = bytes(inp,'utf-8')
             Option(f"Base64: {str(base64.b64encode(x))}",['exit'])
+
+
+
+
         elif app == 'Lottery!':
             while True:
                 try:
@@ -276,15 +320,25 @@ def System():
             z = '$'
             os.system('cls')
             for _ in range(3):
+                lastsymbol = ''
                 for _ in range(random.randint(10,100)):
                     print(f'{x}|{y}|{z}')
-                    
-                    if turn == 1:
-                        x = random.choice(symbols)
-                    elif turn == 2:
-                        y = random.choice(symbols)
-                    else:
-                        z = random.choice(symbols)
+                    while True:
+                        if turn == 1:
+                            x = random.choice(symbols)
+                        elif turn == 2:
+                            y = random.choice(symbols)
+                        else:
+                            z = random.choice(symbols)
+                        if turn == 1:
+                            if not x == lastsymbol:
+                                break
+                        if turn == 2:
+                            if not y == lastsymbol:
+                                break
+                        if turn == 3:
+                            if not z == lastsymbol:
+                                break
                     time.sleep(0.1)
                     os.system('cls')
                 turn += 1
