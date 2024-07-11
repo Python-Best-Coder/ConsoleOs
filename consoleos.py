@@ -192,6 +192,10 @@ def System():
                             print('[','#'*x,'0'*(100-x),']')
                             time.sleep(0.1)
                             os.system('cls')
+                if x >= 99:
+                    os.system('cls')
+                    print("the leakrs saved you again.. pretty lucky..")
+                    Option('oh..',['>'])
                     
 
         elif app == 'THEPACKAGE':
