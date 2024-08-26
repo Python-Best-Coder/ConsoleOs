@@ -9,8 +9,13 @@ import string
 import re
 import o
 import base64
-
 from bs4 import BeautifulSoup
+
+global isitok
+isitok = False
+
+clear = lambda: os.system('cls' if os.name == 'nt' else 'clear')
+
 
 
 # Function to provide options and handle user input
@@ -76,14 +81,14 @@ for file in list_files_in_directory(data):
         print("Reading data...")
         with open(os.path.join(data, 'donotdelete.txt'), 'r') as file:
             read = o.decrypt_string(o.decrypt_string(file.read()))
-            print(read)
+
             # Split the string into key-value pairs
             try:
                 datasaved = ast.literal_eval(str(read))
 
             except Exception:
-                datasaved = str(o.encrypt_string("{'Useless':'','History':[],'Balance':0}"))
-            print(datasaved)
+                datasaved = ast.literal_eval("{'Useless':'','History':[],'Balance':0}")
+
 time.sleep(1)
 
 
@@ -114,29 +119,31 @@ def System():
         if app == 'Settings':
             setting = Option('Settings', ['BuildModule'])
             if setting == 'BuildModule':
-                Option("BuildModule: 0.0.2", ['Exit'])
+                Option("BuildModule: 0.0.4:FLIPOS", ['Exit'])
+
         elif app == 'Terminal':
             os.system('cls')
             inp = input("> ")
             install = re.search(r'\$sudo inst \;(.+)',inp)
             package = re.search(r'\$sudo instpackage \;(.+)',inp)
             hELL = re.search(r'\$sudo HELP \;useful',inp)
+            
             if hELL:
                 for i in range(1,100):
                     print("Installing..")
-                    print('[','#'*i,'0'*(100-i),']')
+                    print('[','█'*i,' '*(100-i),']')
                     time.sleep(random.uniform(0.01,0.1))
                     os.system('cls')
                 apps.append('really useful')
             if install:
                 
                 
-                appsincloud = ['appstore','10110','$sudo', 'THEPACKAGE']
+                appsincloud = ['appstore','10110','$sudo', 'THEPACKAGE', 'pip']
                 appinstalling = install.group(1)
                 if appinstalling in appsincloud and not appinstalling in apps:
                     for i in range(1,100):
                         print("Installing..")
-                        print('[','#'*i,'0'*(100-i),']')
+                        print('[','█'*i,' '*(100-i),']')
                         time.sleep(random.uniform(0.01,0.1))
                         os.system('cls')
                     apps.append(appinstalling)
@@ -147,7 +154,7 @@ def System():
                     for i in range(1,100):
                         print("Installing Package..")
                         print("this may take long.")
-                        print('[','#'*i,'0'*(100-i),']')
+                        print('[','█'*i,' '*(100-i),']')
                         time.sleep(random.uniform(0.01,0.2))
                         os.system('cls')
                     apps.append(appinstalling)
@@ -172,11 +179,27 @@ def System():
                     break
             if not 'Paitience' in apps:
                 apps.append('Paitience')
+        elif app == 'pip':
+            
+            clear()
+            x = Option('Choose a option',['openfile'])
+            if x == 'openfile':
+                filename = input("> ")
+                filepath = os.path.join(data,filename)
+                with open(filepath,'r') as file:
+                    read = file.readlines()
+                    for line in read:
+                        exec(line)
+                    print("\n")
+                    input("Press Enter to EXIT.")
+                    
+
+            
         elif app == 'really useful':
             x = 1
             while True:
                 print("Installing..")
-                print('[','#'*x,'0'*(100-x),']')
+                print('[','█'*x,' '*(100-x),']')
                 time.sleep(random.uniform(0.01,0.1))
                 os.system('cls')
                 if random.randint(1,4) != 4:
@@ -189,7 +212,7 @@ def System():
                             x -= 1
                             print("Installing..")
 
-                            print('[','#'*x,'0'*(100-x),']')
+                            print('[','█'*x,' '*(100-x),']')
                             time.sleep(0.1)
                             os.system('cls')
                 if x >= 99:
@@ -274,7 +297,43 @@ def System():
                
             if filemanage == 'Write File':
                 name = input("Name > ")
-                text = input("Text > ")
+                if not name.endswith('$conpy'):
+                    text = input("Text > ")
+                else:
+                    tx = ''
+                    text = []
+                    x = 0
+                    while True:
+                        os.system('cls')
+                        print("Writing python file.. ")
+
+
+                        for line in text:
+                            print(line)
+                        line = input(f"")
+                        goto = re.match(r'goto (.+)',line)
+                        if goto:
+                            x = int(goto.group(1))
+                        elif x < len(text):
+                            text[x] == line
+                        elif line == 'exit$':
+                            break
+                        else:
+                            text.append(line)
+                        x += 1
+                    os.system('cls')
+                    print("Breaking down syntax..")
+                    for line in text:
+                        tx += line
+                        tx += '\n'
+                    text = tx
+                name = name.replace('$conpy','')
+                    
+                        
+
+
+
+                
                 file_path = os.path.join(data, name + '.txt')
                 
                 # Write text to file
@@ -322,7 +381,7 @@ def System():
             if x == 'base64 translator':
                 for i in range(1,100):
                     print("Installing...")
-                    print('[','#'*i,'0'*(100-i),']')
+                    print('[','█'*i,'0'*(100-i),']')
                     os.system('cls')
                     time.sleep(random.uniform(0.01,0.1))
                     if not x in apps:
@@ -330,7 +389,7 @@ def System():
             elif x == 'Lottery!':
                 for i in range(1,100):
                     print("Installing...")
-                    print('[','#'*i,'0'*(100-i),']')
+                    print('[','█'*i,'0'*(100-i),']')
                     
                     time.sleep(random.uniform(0.01,0.1))
                     os.system('cls')
@@ -399,7 +458,7 @@ def System():
 
 
         elif app == 'ConsoleBrowse':
-            if isitok:
+
                 print("History")
                 historiesprinted = 0
                 for x in datasaved['History']:
@@ -428,10 +487,7 @@ def System():
                 
                 input("Press Enter to continue...")
                 continue
-            else:
-                Option("YOU CANT GET AWAY. "*20,['alright thats it'])
-                Option("OHHH MY GOOOOOo- THIS IS IMPOSSIBLE.",['noob'])
-                isitok = True
+
 
 
 # Function to fetch a web page using requests
