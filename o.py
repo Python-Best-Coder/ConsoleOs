@@ -8,16 +8,16 @@ def encrypt_number(number):
     toreturn = ''
     while True:
         if not x + 4 > number:
-            toreturn += '#'
+            toreturn += ''
             x += 4
         if not x + 3 > number:
-            toreturn += '*'
+            toreturn += 'G'
             x += 3
         elif not x + 2 > number:
-            toreturn += ':'
+            toreturn += ''
             x += 2
         elif not x + 1 > number:
-            toreturn += '.'
+            toreturn += ''
             x += 1
         else:
             break
@@ -54,13 +54,13 @@ def decrypt_string(encryptedstring:str):
         for egg in egg2:
             x = 0
             for letter in egg:
-                if letter == '#':
+                if letter == '':
                     x += 4
-                if letter == '*':
+                if letter == 'G':
                     x += 3
-                elif letter == ':':
+                elif letter == '':
                     x += 2
-                elif letter == '.':
+                elif letter == '':
                     x += 1
             if not x == 0:
                 toreturn += values[x]
@@ -72,10 +72,10 @@ def decrypt_string(encryptedstring:str):
 
 
 decrypted = decrypt_string('')
-encrypted = encrypt_string('the simplicity of having to code python is amazing!')
+encrypted = encrypt_string(('helloworld'))
 
-print(decrypted)
 print(encrypted)
+
 
 
 
